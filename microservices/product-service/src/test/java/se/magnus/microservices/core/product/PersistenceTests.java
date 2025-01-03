@@ -90,10 +90,11 @@ class PersistenceTests extends MongoDbTestBase {
 
     // Update the entity using the first entity object
     entity1.setName("n1");
-    repository.save(entity1).block();
+    repository.save(entity1).block(); //version es 1
 
     //  Update the entity using the second entity object.
     // This should fail since the second entity now holds a old version number, i.e. a Optimistic Lock Error
+    entity2.setName("n2");
     StepVerifier.create(repository.save(entity2)).expectError(OptimisticLockingFailureException.class).verify();
 
     // Get the updated entity from the database and verify its new sate
