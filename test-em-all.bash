@@ -176,10 +176,10 @@ echo "PORT=${PORT}"
 if [[ $@ == *"start"* ]]
 then
   echo "Restarting the test environment..."
-  echo "$ docker compose down --remove-orphans"
-  docker compose down --remove-orphans
-  echo "$ docker compose up -d"
-  docker compose up -d
+  echo "$ podman compose down --remove-orphans"
+  podman compose down --remove-orphans
+  echo "$ podman compose up -d"
+  podman compose up -d
 fi
 
 waitForService curl http://$HOST:$PORT/actuator/health
@@ -235,8 +235,8 @@ assertCurl 200 "curl -s  http://$HOST:$PORT/openapi/v3/api-docs.yaml"
 if [[ $@ == *"stop"* ]]
 then
     echo "We are done, stopping the test environment..."
-    echo "$ docker compose down"
-    docker compose down
+    echo "$ podman compose down"
+    podman compose down
 fi
 
 echo "End, all tests OK:" `date`
